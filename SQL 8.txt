@@ -1,0 +1,21 @@
+
+   SELECT COUNT(*) AS nombre_etudiants FROM Etudiants;
+
+   SELECT nom, TIMESTAMPDIFF(YEAR, date_naissance, CURDATE()) AS age FROM Etudiants;
+ 
+   SELECT titre, prix FROM Formations WHERE prix = (SELECT MAX(prix) FROM Formations);
+   SELECT titre, prix FROM Formations WHERE prix = (SELECT MIN(prix) FROM Formations);
+
+   SELECT SUM(prix) AS total_prix FROM Formations;
+
+   SELECT session_id, COUNT(*) AS nombre_etudiants FROM Inscriptions GROUP BY session_id;
+
+   SELECT DISTINCT etudiant_cin FROM Inscriptions;
+
+   SELECT etudiant_cin, COUNT(*) AS nombre_inscriptions FROM Inscriptions GROUP BY etudiant_cin;
+
+   SELECT session_id,
+          SUM(CASE WHEN type_cours = 'distance' THEN 1 ELSE 0 END) AS inscriptions_lointaines,
+          SUM(CASE WHEN type_cours = 'presentiel' THEN 1 ELSE 0 END) AS inscriptions_presentes
+   FROM Inscriptions
+   GROUP BY session_id;
